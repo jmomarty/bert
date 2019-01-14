@@ -408,8 +408,13 @@ class SemEvalProcessor(DataProcessor):
         text_a = tokenization.convert_to_unicode(line[1])
         label = "0"
       else:
-        text_a = tokenization.convert_to_unicode(line[3])
-        label = tokenization.convert_to_unicode(line[1])
+        try:
+            text_a = tokenization.convert_to_unicode(line[3])
+            label = tokenization.convert_to_unicode(line[1])
+        except:
+            print(line)
+            import sys
+            sys.exit(0)
       examples.append(
           InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
     return examples
