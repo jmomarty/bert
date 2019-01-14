@@ -405,8 +405,8 @@ class SemEvalProcessor(DataProcessor):
       #  continue
       guid = "%s-%s" % (set_type, i)
       if set_type == "test":
-        text_a = tokenization.convert_to_unicode(line[1])
-        label = "0"
+        text_a = tokenization.convert_to_unicode(line[3])
+        label = None
       else:
         text_a = tokenization.convert_to_unicode(line[3])
         label = tokenization.convert_to_unicode(line[1])
@@ -727,9 +727,11 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
         accuracy = tf.metrics.accuracy(
             labels=label_ids, predictions=predictions, weights=is_real_example)
         loss = tf.metrics.mean(values=per_example_loss, weights=is_real_example)
+        f1 = tf.metrics.f1_score(labels=label_ids, predictions=predictions, weights=is_real_example)
         return {
             "eval_accuracy": accuracy,
             "eval_loss": loss,
+            "eval_f1": f1
         }
 
       eval_metrics = (metric_fn,
