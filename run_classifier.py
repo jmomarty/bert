@@ -37,6 +37,10 @@ flags.DEFINE_string(
     "for the task.")
 
 flags.DEFINE_string(
+    "fold_number", None,
+    "The fold number")
+
+flags.DEFINE_string(
     "bert_config_file", None,
     "The config json file corresponding to the pre-trained BERT model. "
     "This specifies the model architecture.")
@@ -177,15 +181,15 @@ class InputFeatures(object):
 class DataProcessor(object):
   """Base class for data converters for sequence classification data sets."""
 
-  def get_train_examples(self, data_dir):
+  def get_train_examples(self, data_dir, fold):
     """Gets a collection of `InputExample`s for the train set."""
     raise NotImplementedError()
 
-  def get_dev_examples(self, data_dir):
+  def get_dev_examples(self, data_dir, fold):
     """Gets a collection of `InputExample`s for the dev set."""
     raise NotImplementedError()
 
-  def get_test_examples(self, data_dir):
+  def get_test_examples(self, data_dir, fold):
     """Gets a collection of `InputExample`s for prediction."""
     raise NotImplementedError()
 
@@ -377,20 +381,15 @@ class ColaProcessor(DataProcessor):
 class SemEvalProcessor(DataProcessor):
   """Processor for the Semeval Task 9 data set."""
 
-  def get_train_examples(self, data_dir):
+  def get_train_examples(self, data_dir, fold):
     """See base class."""
     return self._create_examples(
-        self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+        self._read_tsv(os.path.join(data_dir, "train_fold_" + fold + ".data")), "train")
 
-  def get_dev_examples(self, data_dir):
+  def get_test_examples(self, data_dir, fold):
     """See base class."""
     return self._create_examples(
-        self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
-
-  def get_test_examples(self, data_dir):
-    """See base class."""
-    return self._create_examples(
-        self._read_tsv(os.path.join(data_dir, "test.tsv")), "test")
+        self._read_tsv(os.path.join(data_dir, "test_fold_" + fold + ".data")), "test")
 
   def get_labels(self):
     """See base class."""
@@ -885,7 +884,7 @@ def main(_):
   num_train_steps = None
   num_warmup_steps = None
   if FLAGS.do_train:
-    train_examples = processor.get_train_examples(FLAGS.data_dir)
+    train_examples = processor.get_train_examples(FLAGS.data_dir, FLAGS.fold_number)
     num_train_steps = int(
         len(train_examples) / FLAGS.train_batch_size * FLAGS.num_train_epochs)
     num_warmup_steps = int(num_train_steps * FLAGS.warmup_proportion)
@@ -972,7 +971,7 @@ def main(_):
         writer.write("%s = %s\n" % (key, str(result[key])))
 
   if FLAGS.do_predict:
-    predict_examples = processor.get_test_examples(FLAGS.data_dir)
+    predict_examples = processor.get_test_examples(FLAGS.data_dir, FLAGS.fold_number)
     num_actual_predict_examples = len(predict_examples)
     if FLAGS.use_tpu:
       # TPU requires a fixed batch size for all batches, therefore the number
