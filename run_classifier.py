@@ -352,7 +352,6 @@ class ColaProcessor(DataProcessor):
 
   def get_test_examples(self, data_dir):
     """See base class."""
-    tf.logging.info(os.path.join(data_dir, "test.tsv"))
     return self._create_examples(
         self._read_tsv(os.path.join(data_dir, "test.tsv")), "test")
 
@@ -976,6 +975,7 @@ def main(_):
     predict_examples = processor.get_test_examples(FLAGS.data_dir, FLAGS.fold_number)
     num_actual_predict_examples = len(predict_examples)
     tf.logging.info("NUMBER ACTUAL EXAMPLES %s", str(num_actual_predict_examples))
+    tf.logging.info(os.path.join(FLAGS.data_dir, "test_fold_" + FLAGS.fold_number + ".data"))
     import sys
     sys.exit(1)
     if FLAGS.use_tpu:
