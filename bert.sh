@@ -42,17 +42,17 @@ python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEM
 # predicting on subtask A
 python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEMEVAL  --do_predict=true --data_dir=$SEMEVAL/subtaskA \
 --vocab_file=$BERT_BASE_DIR/vocab.txt   --bert_config_file=$BERT_BASE_DIR/bert_config.json   \
---init_checkpoint=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/model.ckpt-1054   --max_seq_length=128   \
+--init_checkpoint=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/model.ckpt-2109   --max_seq_length=128   \
 --output_dir=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/subtaskA --use_tpu=True --tpu_name=$TPU_NAME
 # predicting on subtask B
 python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEMEVAL  --do_predict=true --data_dir=$SEMEVAL/subtaskB \
 --vocab_file=$BERT_BASE_DIR/vocab.txt   --bert_config_file=$BERT_BASE_DIR/bert_config.json   \
---init_checkpoint=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/model.ckpt-1054   --max_seq_length=128   \
+--init_checkpoint=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/model.ckpt-2109   --max_seq_length=128   \
 --output_dir=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/subtaskB --use_tpu=True --tpu_name=$TPU_NAME
 # predicting on subtask Bdev
 python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEMEVAL  --do_predict=true --data_dir=$SEMEVAL/subtaskBdev \
 --vocab_file=$BERT_BASE_DIR/vocab.txt   --bert_config_file=$BERT_BASE_DIR/bert_config.json   \
---init_checkpoint=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/model.ckpt-1054   --max_seq_length=128   \
+--init_checkpoint=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/model.ckpt-2109   --max_seq_length=128   \
 --output_dir=gs://jmomarty2/semeval/bert_models/$MODEL_NAME/full/subtaskBdev --use_tpu=True --tpu_name=$TPU_NAME
 
 # model bert_cased_L-12_H-768_A-12_standard.f1.0.833
