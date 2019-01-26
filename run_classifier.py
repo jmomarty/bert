@@ -352,6 +352,7 @@ class ColaProcessor(DataProcessor):
 
   def get_test_examples(self, data_dir):
     """See base class."""
+    tf.logging.info(os.path.join(data_dir, "test.tsv"))
     return self._create_examples(
         self._read_tsv(os.path.join(data_dir, "test.tsv")), "test")
 
