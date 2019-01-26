@@ -405,8 +405,7 @@ class SemEvalProcessor(DataProcessor):
       guid = "%s-%s" % (set_type, i)
       if set_type == "test":
         text_a = tokenization.convert_to_unicode(line[0])
-        #label = tokenization.convert_to_unicode(line[1])
-        label=0
+        label = tokenization.convert_to_unicode(str(0))
       else:
         text_a = tokenization.convert_to_unicode(line[0])
         label = tokenization.convert_to_unicode(line[1])
