@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # where to put the data
-export SEMEVAL=gs://jmomarty/semeval/stacking/
+export SEMEVAL=gs://jmomarty/semeval/stacking
 # the path to the pretrained model
 
 # model bert.uncased.L-12_H-768_A-12_standard.nopreprocessing.f1.0.835
