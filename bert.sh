@@ -31,7 +31,7 @@ export SEMEVAL=gs://jmomarty2/semeval/stacking
 
 # model bert.cased_L-12_H-768_A-12_lr_5e5_bs_16.f1.0.825
 export BERT_BASE_DIR=gs://jmomarty2/cased_L-12_H-768_A-12
-export MODEL_NAME=cased_L-12_H-768_A-12_lr_5e5_bs_16/
+export MODEL_NAME=cased_L-12_H-768_A-12_lr_5e5_bs_16
 # training
 python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEMEVAL   --do_train=true \
         --data_dir=$SEMEVAL --vocab_file=$BERT_BASE_DIR/vocab.txt   --bert_config_file=$BERT_BASE_DIR/bert_config.json \
@@ -57,7 +57,7 @@ python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEM
 
 # model bert_cased_L-12_H-768_A-12_standard.f1.0.833
 export BERT_BASE_DIR=gs://jmomarty2/cased_L-12_H-768_A-12
-export MODEL_NAME=cased_L-12_H-768_A-12_standard/
+export MODEL_NAME=cased_L-12_H-768_A-12_standard
 # training
 python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEMEVAL   --do_train=true \
         --data_dir=$SEMEVAL --vocab_file=$BERT_BASE_DIR/vocab.txt   --bert_config_file=$BERT_BASE_DIR/bert_config.json \
@@ -109,7 +109,7 @@ python run_classifier.py   --do_lower_case=False --fold_number=0 --task_name=SEM
 
 # model bert_uncased_L-24_H-1024_A-16_standard.f1.0.838
 export BERT_BASE_DIR=gs://jmomarty2/uncased_L-24_H-1024_A-16
-export MODEL_NAME=uncased_L-24_H-1024_A-16_standard/
+export MODEL_NAME=uncased_L-24_H-1024_A-16_standard
 # training
 python run_classifier.py   --do_lower_case=True --fold_number=0 --task_name=SEMEVAL   --do_train=true \
         --data_dir=$SEMEVAL --vocab_file=$BERT_BASE_DIR/vocab.txt   --bert_config_file=$BERT_BASE_DIR/bert_config.json \
