@@ -971,13 +971,8 @@ def main(_):
         writer.write("%s = %s\n" % (key, str(result[key])))
 
   if FLAGS.do_predict:
-    tf.logging.info("DATA DIR %s FOLD NUMBER %s", str(FLAGS.data_dir), str(FLAGS.fold_number))
     predict_examples = processor.get_test_examples(FLAGS.data_dir, FLAGS.fold_number)
     num_actual_predict_examples = len(predict_examples)
-    tf.logging.info("NUMBER ACTUAL EXAMPLES %s", str(num_actual_predict_examples))
-    tf.logging.info(os.path.join(FLAGS.data_dir, "test_fold_" + FLAGS.fold_number + ".data"))
-    import sys
-    sys.exit(1)
     if FLAGS.use_tpu:
       # TPU requires a fixed batch size for all batches, therefore the number
       # of examples must be a multiple of the batch size, or else examples
